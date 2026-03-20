@@ -1,7 +1,7 @@
 import './App.css'
 import TaskInput from "./components/TaskInput";
-function App() {
 
+const App = () => {
 
   return (
     <>
