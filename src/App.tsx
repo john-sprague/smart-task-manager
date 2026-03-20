@@ -2,6 +2,7 @@
 import './App.css'
 import React, {useState} from 'react';
 import TaskInput from "./components/TaskInput";
+import TaskList from "./components/TaskList";
 import type { Task } from "./types/Task";
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
       <div className="mx-auto max-w-xl mt-10 text-center" >
         <h1 className="text-2xl font-bold mb-4">Smart Task Manager</h1>
         <TaskInput onAdd={addTask}/>
-
+        <TaskList tasks={tasks}/>
       </div>
     </>
   )
