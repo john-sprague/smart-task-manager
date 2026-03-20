@@ -1,5 +1,5 @@
 import './App.css'
-
+import TaskInput from "./components/TaskInput";
 function App() {
 
 
@@ -7,6 +7,7 @@ function App() {
     <>
       <div className="mx-auto max-w-xl mt-10 text-center" >
         <h1 className="text-2xl font-bold mb-4">Smart Task Manager</h1>
+        <TaskInput />
       </div>
     </>
   )
