@@ -22,7 +22,11 @@ const App = () => {
 
   const toggleTask = (id: string): void => {
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+      prev.map(
+        (task) =>
+          task.id === id ? { ...task, completed: !task.completed } : task
+        // eslint-disable-next-line prettier/prettier
+      )
     );
   };
 
