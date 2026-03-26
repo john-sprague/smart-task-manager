@@ -9,9 +9,9 @@ const App = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
 
-  const filteredTasks = tasks.filter((t) => {
-    if (filter === "active") return !t.completed;
-    if (filter === "completed") return t.completed;
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
     return true;
   });
 
@@ -39,7 +39,7 @@ const App = () => {
   };
 
   const deleteTask = (id: string): void => {
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
   return (
