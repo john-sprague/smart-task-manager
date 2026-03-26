@@ -1,5 +1,6 @@
 import React from "react";
 import type { Filter } from "../types/Task";
+import { FILTERS } from "../constants/index";
 
 interface Props {
   filter: Filter;
@@ -7,8 +8,7 @@ interface Props {
 }
 
 export default function FilterBar({ filter, setFilter }: Props) {
-  const filters: Filter[] = ["all", "active", "completed"];
-
+  const filters = Object.values(FILTERS);
   return (
     <div className="flex gap-2 mt-4">
       {filters.map((f) => (

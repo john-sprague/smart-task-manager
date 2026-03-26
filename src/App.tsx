@@ -4,14 +4,16 @@ import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import FilterBar from "./components/FilterBar";
 import type { Task, Filter } from "./types/Task";
+import { FILTERS } from "./constants/index";
 
 const App = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "active") return !task.completed;
-    if (filter === "completed") return task.completed;
+    console.log(FILTERS.ACTIVE);
+    if (filter === FILTERS.ACTIVE) return !task.completed;
+    if (filter === FILTERS.COMPLETED) return task.completed;
     return true;
   });
 

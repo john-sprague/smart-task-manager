@@ -1,3 +1,5 @@
+import { FILTERS } from "../constants/index";
+
 export interface Task {
   id: string;
   text: string;
@@ -5,4 +7,4 @@ export interface Task {
   createdAt: number;
 }
 
-export type Filter = "all" | "active" | "completed";
+export type Filter = (typeof FILTERS)[keyof typeof FILTERS];
