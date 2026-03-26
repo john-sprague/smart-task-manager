@@ -4,14 +4,15 @@ import TaskItem from "./TaskItem";
 
 interface Props {
   tasks: Task[];
+  onToggle: (id: string) => void;
 }
 
-const TaskList = ({ tasks }: Props) => {
+const TaskList = ({ tasks, onToggle }: Props) => {
   console.log(tasks);
   return (
     <div className="mt-4">
       {tasks.map((task) => (
-        <TaskItem task={task} />
+        <TaskItem key={task.id} task={task} onToggle={onToggle} />
       ))}
     </div>
   );
