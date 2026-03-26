@@ -4,9 +4,10 @@ import type { Task } from "../types/Task";
 interface Props {
   task: Task;
   onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-const TaskItem = ({ task, onToggle }: Props) => {
+const TaskItem = ({ task, onToggle, onDelete }: Props) => {
   return (
     <div className="flex items-center justify-between p-2 border-b">
       <div className="flex items-center gap-2">
@@ -18,8 +19,8 @@ const TaskItem = ({ task, onToggle }: Props) => {
         <span className={task.completed ? "line-through" : ""}>
           {task.text}
         </span>
-      </div>
-      ={" "}
+      </div>{" "}
+      <button onClick={() => onDelete(task.id)}>❌</button>
     </div>
   );
 };

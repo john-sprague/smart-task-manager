@@ -30,12 +30,16 @@ const App = () => {
     );
   };
 
+  const deleteTask = (id: string): void => {
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
+
   return (
     <>
       <div className="mx-auto max-w-xl mt-10 text-center">
         <h1 className="text-2xl font-bold mb-4">Smart Task Manager</h1>
         <TaskInput onAdd={addTask} />
-        <TaskList tasks={tasks} onToggle={toggleTask} />
+        <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
       </div>
     </>
   );
