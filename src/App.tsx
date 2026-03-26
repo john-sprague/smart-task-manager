@@ -2,10 +2,18 @@ import "./App.css";
 import React, { useState } from "react";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
-import type { Task } from "./types/Task";
+import FilterBar from "./components/FilterBar";
+import type { Task, Filter } from "./types/Task";
 
 const App = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const filteredTasks = tasks.filter((t) => {
+    if (filter === "active") return !t.completed;
+    if (filter === "completed") return t.completed;
+    return true;
+  });
 
   const addTask = (text: string): void => {
     if (!text.trim()) return;
@@ -39,7 +47,12 @@ const App = () => {
       <div className="mx-auto max-w-xl mt-10 text-center">
         <h1 className="text-2xl font-bold mb-4">Smart Task Manager</h1>
         <TaskInput onAdd={addTask} />
-        <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
+        <FilterBar filter={filter} setFilter={setFilter} />
+        <TaskList
+          tasks={filteredTasks}
+          onToggle={toggleTask}
+          onDelete={deleteTask}
+        />
       </div>
     </>
   );
