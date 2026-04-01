@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import FilterBar from "./components/FilterBar";
+import { useTasks } from "./hooks/useTasks";
 import type { Task, Filter } from "./types/Task";
 import { FILTERS } from "./constants/index";
 
 const App = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { tasks, setTasks } = useTasks();
   const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
 
   const filteredTasks = tasks.filter((task) => {
