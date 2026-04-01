@@ -4,11 +4,11 @@ import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
 import FilterBar from "./components/FilterBar";
 import { useTasks } from "./hooks/useTasks";
-import type { Task, Filter } from "./types/Task";
+import type { Filter } from "./types/Task";
 import { FILTERS } from "./constants/index";
 
 const App = () => {
-  const { tasks, setTasks } = useTasks();
+  const { tasks, addTask, setTasks } = useTasks();
   const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
 
   const filteredTasks = tasks.filter((task) => {
@@ -17,19 +17,6 @@ const App = () => {
     if (filter === FILTERS.COMPLETED) return task.completed;
     return true;
   });
-
-  const addTask = (text: string): void => {
-    if (!text.trim()) return;
-
-    const newTask: Task = {
-      id: crypto.randomUUID(),
-      text,
-      completed: false,
-      createdAt: Date.now(),
-    };
-
-    setTasks((previous) => [...previous, newTask]);
-  };
 
   const toggleTask = (id: string): void => {
     setTasks((prev) =>
