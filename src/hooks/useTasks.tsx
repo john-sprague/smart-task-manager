@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Task } from "../types/Task";
+import { saveTasks, loadTasks } from "../utils/storage";
 
 export function useTasks() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(loadTasks);
+
+  useEffect(() => {
+    saveTasks(tasks);
+  }, [tasks]);
 
   const addTask = (text: string): void => {
     if (!text.trim()) return;
@@ -19,11 +24,9 @@ export function useTasks() {
 
   const toggleTask = (id: string): void => {
     setTasks((prev) =>
-      prev.map(
-        (task) =>
-          task.id === id ? { ...task, completed: !task.completed } : task
-        // eslint-disable-next-line prettier/prettier
-      )
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
     );
   };
 
