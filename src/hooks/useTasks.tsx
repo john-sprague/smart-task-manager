@@ -17,9 +17,24 @@ export function useTasks() {
     setTasks((previous) => [...previous, newTask]);
   };
 
+  const toggleTask = (id: string): void => {
+    setTasks((prev) =>
+      prev.map(
+        (task) =>
+          task.id === id ? { ...task, completed: !task.completed } : task
+        // eslint-disable-next-line prettier/prettier
+      )
+    );
+  };
+
+  const deleteTask = (id: string): void => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
+
   return {
     tasks,
     addTask,
-    setTasks,
+    toggleTask,
+    deleteTask,
   };
 }

@@ -8,7 +8,7 @@ import type { Filter } from "./types/Task";
 import { FILTERS } from "./constants/index";
 
 const App = () => {
-  const { tasks, addTask, setTasks } = useTasks();
+  const { tasks, addTask, toggleTask, deleteTask } = useTasks();
   const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
 
   const filteredTasks = tasks.filter((task) => {
@@ -17,20 +17,6 @@ const App = () => {
     if (filter === FILTERS.COMPLETED) return task.completed;
     return true;
   });
-
-  const toggleTask = (id: string): void => {
-    setTasks((prev) =>
-      prev.map(
-        (task) =>
-          task.id === id ? { ...task, completed: !task.completed } : task
-        // eslint-disable-next-line prettier/prettier
-      )
-    );
-  };
-
-  const deleteTask = (id: string): void => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
 
   return (
     <>
