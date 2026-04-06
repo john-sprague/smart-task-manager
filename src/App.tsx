@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TaskInput from "./components/TaskInput";
+import SearchInput from "./components/SearchInput";
 import TaskList from "./components/TaskList";
 import FilterBar from "./components/FilterBar";
 import { useTasks } from "./hooks/useTasks";
@@ -9,12 +10,20 @@ import { FILTERS } from "./constants/index";
 const App = () => {
   const { tasks, addTask, toggleTask, deleteTask } = useTasks();
   const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === FILTERS.ACTIVE) return !task.completed;
-    if (filter === FILTERS.COMPLETED) return task.completed;
-    return true;
-  });
+  const filteredTasks = tasks
+    .filter((task) => {
+      // First apply status filter
+      if (filter === FILTERS.ACTIVE) return !task.completed;
+      if (filter === FILTERS.COMPLETED) return task.completed;
+      return true;
+    })
+    .filter((task) => {
+      // Then apply search (case-insensitive)
+      if (!searchQuery) return true;
+      return task.text.toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
   return (
     <div className="min-h-screen bg-[#0a1428] py-6 px-4 flex items-center justify-center">
@@ -31,7 +40,7 @@ const App = () => {
           <TaskInput onAdd={addTask} />
 
           <FilterBar filter={filter} setFilter={setFilter} />
-
+          <SearchInput onSearch={setSearchQuery} />
           <TaskList
             tasks={filteredTasks}
             onToggle={toggleTask}
