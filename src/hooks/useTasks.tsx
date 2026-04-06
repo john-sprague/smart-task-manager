@@ -16,6 +16,7 @@ export function useTasks() {
       id: crypto.randomUUID(),
       text,
       completed: false,
+      priority: "medium",
       createdAt: Date.now(),
     };
 
