@@ -1,14 +1,15 @@
 import React from "react";
-import type { Task } from "../types/Task";
+import type { Task, Priority } from "../types/Task";
 import TaskItem from "./TaskItem";
 
 interface Props {
   tasks: Task[];
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
+  onPriorityChange: (id: string, priority: Priority) => void;
 }
 
-const TaskList = ({ tasks, onToggle, onDelete }: Props) => {
+const TaskList = ({ tasks, onToggle, onDelete, onPriorityChange }: Props) => {
   return (
     <div>
       {tasks.map((task) => (
@@ -17,6 +18,7 @@ const TaskList = ({ tasks, onToggle, onDelete }: Props) => {
           task={task}
           onToggle={onToggle}
           onDelete={onDelete}
+          onPriorityChange={onPriorityChange}
         />
       ))}
     </div>

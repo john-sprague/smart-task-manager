@@ -9,3 +9,5 @@ export interface Task {
 }
 
 export type Filter = (typeof FILTERS)[keyof typeof FILTERS];
+
+export type Priority = "high" | "medium" | "low";

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Task } from "../types/Task";
+import type { Priority, Task } from "../types/Task";
 import { saveTasks, loadTasks } from "../utils/storage";
 
 export function useTasks() {
@@ -35,10 +35,19 @@ export function useTasks() {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
+  const updateTaskPriority = (id: string, priority: Priority): void => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, priority: priority } : task,
+      ),
+    );
+  };
+
   return {
     tasks,
     addTask,
     toggleTask,
     deleteTask,
+    updateTaskPriority,
   };
 }
