@@ -9,9 +9,8 @@ interface Props {
 }
 
 const TaskList = ({ tasks, onToggle, onDelete }: Props) => {
-  console.log(tasks);
   return (
-    <div className="mt-4">
+    <div>
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
