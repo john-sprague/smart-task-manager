@@ -20,17 +20,17 @@ const TaskItem = ({
 }: Props) => {
   return (
     <div className="group bg-[#0f172a] border border-[#334155] rounded-2xl px-4 py-4 mb-3 hover:border-[#475569] transition-all">
-      <div className="flex items-start gap-3">
+      <div className="flex items-center gap-3">
         <input
           type="checkbox"
           checked={task.completed}
           onChange={() => onToggle(task.id)}
-          className="w-5 h-5 accent-[#22d3ee] cursor-pointer flex-shrink-0 mt-0.5"
+          className="w-5 h-5 accent-[#22d3ee] cursor-pointer flex-shrink-0"
         />
 
-        <div className="flex-1 min-w-0 pt-0.5">
+        <div className="flex-1 min-w-0">
           <span
-            className={`block text-white text-[17px] leading-relaxed break-words ${
+            className={`text-white text-[17px] leading-relaxed break-words ${
               task.completed ? "line-through text-gray-500" : ""
             }`}
           >
