@@ -7,9 +7,16 @@ interface Props {
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onPriorityChange: (id: string, priority: Priority) => void;
+  onDueDateChange: (id: string, dueDate: string | undefined) => void;
 }
 
-const TaskList = ({ tasks, onToggle, onDelete, onPriorityChange }: Props) => {
+const TaskList = ({
+  tasks,
+  onToggle,
+  onDelete,
+  onPriorityChange,
+  onDueDateChange,
+}: Props) => {
   return (
     <div>
       {tasks.map((task) => (
@@ -19,6 +26,7 @@ const TaskList = ({ tasks, onToggle, onDelete, onPriorityChange }: Props) => {
           onToggle={onToggle}
           onDelete={onDelete}
           onPriorityChange={onPriorityChange}
+          onDueDateChange={onDueDateChange}
         />
       ))}
     </div>

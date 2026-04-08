@@ -8,8 +8,14 @@ import type { Filter, Priority } from "./types/Task";
 import { FILTERS } from "./constants/index";
 
 const App = () => {
-  const { tasks, addTask, toggleTask, deleteTask, updateTaskPriority } =
-    useTasks();
+  const {
+    tasks,
+    addTask,
+    toggleTask,
+    deleteTask,
+    updateTaskPriority,
+    updateDueDate,
+  } = useTasks();
   const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -26,6 +32,10 @@ const App = () => {
 
   const handlePriorityChange = (id: string, priority: Priority) => {
     updateTaskPriority(id, priority);
+  };
+
+  const handleDueDateChange = (id: string, dueDate: string | undefined) => {
+    updateDueDate(id, dueDate);
   };
 
   return (
@@ -47,6 +57,7 @@ const App = () => {
             onToggle={toggleTask}
             onDelete={deleteTask}
             onPriorityChange={handlePriorityChange}
+            onDueDateChange={handleDueDateChange}
           />
 
           {filteredTasks.length === 0 && (

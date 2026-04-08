@@ -43,11 +43,20 @@ export function useTasks() {
     );
   };
 
+  const updateDueDate = (id: string, dueDate: string | undefined): void => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, dueDate: dueDate } : task,
+      ),
+    );
+  };
+
   return {
     tasks,
     addTask,
     toggleTask,
     deleteTask,
     updateTaskPriority,
+    updateDueDate,
   };
 }

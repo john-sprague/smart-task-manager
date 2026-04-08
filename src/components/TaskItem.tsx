@@ -8,9 +8,16 @@ interface Props {
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onPriorityChange: (id: string, priority: Priority) => void;
+  onDueDateChange: (id: string, dueDate: string | undefined) => void;
 }
 
-const TaskItem = ({ task, onToggle, onDelete, onPriorityChange }: Props) => {
+const TaskItem = ({
+  task,
+  onToggle,
+  onDelete,
+  onPriorityChange,
+  onDueDateChange,
+}: Props) => {
   return (
     <div className="group bg-[#0f172a] border border-[#334155] rounded-2xl px-4 py-4 mb-3 hover:border-[#475569] transition-all">
       <div className="flex items-start gap-3">
@@ -39,7 +46,11 @@ const TaskItem = ({ task, onToggle, onDelete, onPriorityChange }: Props) => {
         />
 
         <div className="flex items-center gap-2">
-          <DueDatePicker />
+          <DueDatePicker
+            dueDate={task.dueDate}
+            onChange={(date) => onDueDateChange(task.id, date)}
+            size="small"
+          />
 
           <button
             onClick={() => onDelete(task.id)}
