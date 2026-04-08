@@ -16,6 +16,7 @@ const App = () => {
     updateTaskPriority,
     updateDueDate,
   } = useTasks();
+
   const [filter, setFilter] = useState<Filter>(FILTERS.ALL);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -40,7 +41,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#0a1428] py-6 px-4 flex items-center justify-center">
-      <div className="w-full max-w-xxl mx-auto">
+      <div className="w-full max-w-3xl mx-auto">
         <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-white tracking-tight">
           Smart Task Manager
         </h1>
