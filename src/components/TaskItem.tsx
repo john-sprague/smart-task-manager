@@ -1,6 +1,7 @@
 import React from "react";
 import type { Task, Priority } from "../types/Task";
 import PrioritySelector from "./PrioritySelector";
+import DueDatePicker from "./DueDatePicker";
 
 interface Props {
   task: Task;
@@ -11,42 +12,44 @@ interface Props {
 
 const TaskItem = ({ task, onToggle, onDelete, onPriorityChange }: Props) => {
   return (
-    <div
-      className="group flex items-start gap-3 bg-[#0f172a] border border-[#334155] 
-                 rounded-2xl px-4 py-4 mb-3 hover:border-[#475569] transition-all"
-    >
-      <div className="flex items-center gap-3 flex-shrink-0 pt-0.5">
+    <div className="group bg-[#0f172a] border border-[#334155] rounded-2xl px-4 py-4 mb-3 hover:border-[#475569] transition-all">
+      <div className="flex items-start gap-3">
         <input
           type="checkbox"
           checked={task.completed}
           onChange={() => onToggle(task.id)}
-          className="w-5 h-5 accent-[#22d3ee] cursor-pointer flex-shrink-0"
+          className="w-5 h-5 accent-[#22d3ee] cursor-pointer flex-shrink-0 mt-0.5"
         />
 
+        <div className="flex-1 min-w-0 pt-0.5">
+          <span
+            className={`block text-white text-[17px] leading-relaxed break-words ${
+              task.completed ? "line-through text-gray-500" : ""
+            }`}
+          >
+            {task.text}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#334155]">
         <PrioritySelector
           priority={task.priority}
           onChange={(p) => onPriorityChange(task.id, p)}
         />
-      </div>
 
-      <div className="flex-1 min-w-0 pt-0.5">
-        <span
-          className={`block text-white text-[17px] leading-relaxed break-words ${
-            task.completed ? "line-through text-gray-500" : ""
-          }`}
-        >
-          {task.text}
-        </span>
-      </div>
+        <div className="flex items-center gap-2">
+          <DueDatePicker />
 
-      <button
-        onClick={() => onDelete(task.id)}
-        className="text-gray-400 hover:text-red-500 text-2xl p-2 flex-shrink-0 
-                   opacity-60 group-hover:opacity-100 transition-all active:scale-90 mt-0.5"
-        aria-label="Delete task"
-      >
-        ✕
-      </button>
+          <button
+            onClick={() => onDelete(task.id)}
+            className="text-gray-400 hover:text-red-500 text-2xl p-2 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-all"
+            aria-label="Delete task"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
