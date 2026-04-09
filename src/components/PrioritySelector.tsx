@@ -4,28 +4,39 @@ import type { Priority } from "../types/Task";
 interface Props {
   priority: Priority;
   onChange: (priority: Priority) => void;
+  size?: "small" | "medium" | "large";
 }
 
-const PrioritySelector = ({ priority, onChange }: Props) => {
+const PrioritySelector = ({ priority, onChange, size = "medium" }: Props) => {
   const options = [
-    { value: "high" as const, emoji: "🔴" },
-    { value: "medium" as const, emoji: "🟠" },
-    { value: "low" as const, emoji: "🔵" },
+    { value: "high" as const, emoji: "🔴", label: "High" },
+    { value: "medium" as const, emoji: "🟠", label: "Medium" },
+    { value: "low" as const, emoji: "🔵", label: "Low" },
   ];
+
+  const sizeClasses = {
+    small: "w-8 h-8 text-lg", // Used in TaskItem bottom row
+    medium: "w-9 h-9 text-xl", // Current default
+    large: "w-10 h-10 text-2xl", // For TaskInput (creation)
+  };
 
   return (
     <div className="flex gap-1">
       {options.map((opt) => (
         <button
           key={opt.value}
+          type="button"
           onClick={() => onChange(opt.value)}
-          className={`w-9 h-9 flex items-center justify-center text-xl rounded-xl transition-all ${
-            priority === opt.value
-              ? "bg-[#334155] ring-1 ring-[#22d3ee]"
-              : "hover:bg-[#334155] text-gray-400 hover:text-gray-200"
-          }`}
+          className={`flex items-center justify-center rounded-xl transition-all border
+            ${sizeClasses[size]}
+            ${
+              priority === opt.value
+                ? "bg-[#334155] border-[#22d3ee] ring-1 ring-[#22d3ee]"
+                : "border-transparent hover:bg-[#334155] text-gray-400 hover:text-gray-200"
+            }`}
+          title={`${opt.value} priority`}
         >
-          {opt.emoji}
+          <span>{opt.emoji}</span>
         </button>
       ))}
     </div>

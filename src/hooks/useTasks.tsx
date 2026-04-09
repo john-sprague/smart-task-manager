@@ -9,14 +9,18 @@ export function useTasks() {
     saveTasks(tasks);
   }, [tasks]);
 
-  const addTask = (text: string, dueDate?: string): void => {
+  const addTask = (
+    text: string,
+    priority: Priority = "medium",
+    dueDate?: string,
+  ): void => {
     if (!text.trim()) return;
 
     const newTask: Task = {
       id: crypto.randomUUID(),
       text,
       completed: false,
-      priority: "medium",
+      priority,
       dueDate,
       createdAt: Date.now(),
     };

@@ -43,6 +43,7 @@ const TaskItem = ({
         <PrioritySelector
           priority={task.priority}
           onChange={(p) => onPriorityChange(task.id, p)}
+          size="small"
         />
 
         <div className="flex items-center gap-2">
