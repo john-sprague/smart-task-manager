@@ -53,7 +53,7 @@ const DueDatePicker = ({ dueDate, onChange, size = "normal" }: Props) => {
                 ? "border-red-500 text-red-400"
                 : "border-[#22d3ee] text-[#22d3ee]"
               : "border-gray-600 text-gray-400 hover:border-gray-500"
-          } ${size === "small" ? "text-xs py-1 px-2.5" : ""}`}
+          } ${size === "small" ? "text-xs py-1 px-2.5" : "py-[14px] text-[15px]"}`}
       >
         📅
         {formattedDate ? (
