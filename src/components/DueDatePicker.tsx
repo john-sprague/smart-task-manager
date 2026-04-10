@@ -45,6 +45,7 @@ const DueDatePicker = ({ dueDate, onChange, size = "normal" }: Props) => {
     <div className="relative inline-block">
       <button
         ref={buttonRef}
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-sm transition-all border whitespace-nowrap
           ${
@@ -94,6 +95,7 @@ const DueDatePicker = ({ dueDate, onChange, size = "normal" }: Props) => {
                 onChange(undefined);
                 setIsOpen(false);
               }}
+              type="button"
               className="mt-4 text-red-400 hover:text-red-500 text-sm w-full py-2.5 rounded-xl hover:bg-red-950/30"
             >
               Clear due date
