@@ -1,5 +1,6 @@
 import React from "react";
 import type { Priority } from "../types/Task";
+import { PRIORITY_LEVELS } from "../constants";
 
 interface Props {
   priority: Priority;
@@ -9,9 +10,21 @@ interface Props {
 
 const PrioritySelector = ({ priority, onChange, size = "medium" }: Props) => {
   const options = [
-    { value: "high" as const, emoji: "🔴", label: "High" },
-    { value: "medium" as const, emoji: "🟠", label: "Medium" },
-    { value: "low" as const, emoji: "🔵", label: "Low" },
+    {
+      value: PRIORITY_LEVELS.HIGH.value,
+      emoji: "🔴",
+      label: PRIORITY_LEVELS.HIGH.label,
+    },
+    {
+      value: PRIORITY_LEVELS.MEDIUM.value,
+      emoji: "🟠",
+      label: PRIORITY_LEVELS.MEDIUM.label,
+    },
+    {
+      value: PRIORITY_LEVELS.LOW.value,
+      emoji: "🔵",
+      label: PRIORITY_LEVELS.LOW.label,
+    },
   ];
 
   const sizeClasses = {
