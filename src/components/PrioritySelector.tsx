@@ -42,7 +42,7 @@ const PrioritySelector = ({
   return (
     <div
       className={`flex gap-1 p-1 rounded-xl transition-all
-    ${hasError ? "ring-2 ring-red-500  animate-[shake_0.2s]" : ""}
+    ${hasError ? "ring-1 ring-red-500  animate-[shake_0.2s]" : ""}
   `}
       role="radiogroup"
       aria-invalid={hasError}
