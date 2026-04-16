@@ -69,7 +69,9 @@ const TaskInput = ({ onAdd }: Props) => {
             }}
             placeholder="Add a new task..."
             className={`w-full bg-[#0f172a] border ${
-              errors.value ? "border-red-500" : "border-[#475569]"
+              errors.value
+                ? "border-red-500  animate-[shake_0.2s]"
+                : "border-[#475569]"
             } focus:border-[#22d3ee] 
               rounded-2xl px-5 py-3.5 text-white placeholder-gray-400 
               focus:outline-none focus:ring-2 focus:ring-[#22d3ee]/30 transition-all`}

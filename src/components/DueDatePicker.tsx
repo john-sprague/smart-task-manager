@@ -56,7 +56,7 @@ const DueDatePicker = ({
         className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-sm transition-all border whitespace-nowrap
           ${
             hasError
-              ? "border-red-500 text-red-400"
+              ? "border-red-500 text-red-400 animate-[shake_0.2s]"
               : dueDate
                 ? isOverdue
                   ? "border-red-500 text-red-400"
