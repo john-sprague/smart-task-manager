@@ -42,31 +42,34 @@ const PrioritySelector = ({
   return (
     <div
       className={`flex gap-1 p-1 rounded-xl transition-all
-    ${hasError ? "ring-1 ring-red-500  animate-[shake_0.2s]" : ""}
-  `}
+    ${hasError ? "ring-1 ring-red-500  animate-[shake_0.2s]" : ""}`}
       role="radiogroup"
       aria-invalid={hasError}
     >
-      {options.map((opt) => (
-        <button
-          key={opt.value}
-          type="button"
-          onClick={() => onChange(opt.value)}
-          role="radio"
-          aria-checked={priority === opt.value}
-          className={`flex items-center justify-center rounded-xl transition-all border
-          ${sizeClasses[size]}
-          ${
-            priority === opt.value
-              ? "bg-[#334155] border-[#22d3ee] ring-1 ring-[#22d3ee]"
-              : "border-transparent hover:bg-[#334155] text-gray-400 hover:text-gray-200"
-          }
-        `}
-          title={`${opt.label} priority`}
-        >
-          <span>{opt.emoji}</span>
-        </button>
-      ))}
+      {options.map((opt) => {
+        const isSelected = priority === opt.value;
+
+        const stateClasses = isSelected
+          ? "bg-[#334155] border-[#22d3ee] ring-1 ring-[#22d3ee]"
+          : "border-transparent hover:bg-[#334155] text-gray-400 hover:text-gray-200";
+
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onChange(opt.value)}
+            role="radio"
+            aria-checked={isSelected}
+            className={`flex items-center justify-center rounded-xl transition-all border
+            ${sizeClasses[size]}
+            ${stateClasses}
+          `}
+            title={`${opt.label} priority`}
+          >
+            <span>{opt.emoji}</span>
+          </button>
+        );
+      })}
     </div>
   );
 };
