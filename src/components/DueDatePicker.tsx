@@ -47,23 +47,36 @@ const DueDatePicker = ({
     }
   }, [isOpen]);
 
+  const getDueDateState = () => {
+    if (hasError) return "error";
+    if (!dueDate) return "empty";
+    if (isOverdue) return "overdue";
+    return "active";
+  };
+
+  const stateClasses = {
+    error: "border-red-500 text-red-400",
+    overdue: "border-red-500 text-red-400",
+    active: "border-[#22d3ee] text-[#22d3ee]",
+    empty: "border-gray-600 text-gray-400 hover:border-gray-500",
+  };
+
+  const sizeClasses = {
+    small: "text-xs py-1 px-2.5",
+    normal: "py-[14px] text-[15px]",
+  };
+
+  const state = getDueDateState();
+
   return (
     <div className="relative inline-block">
       <button
         ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-sm transition-all border whitespace-nowrap
-          ${
-            hasError
-              ? "border-red-500 text-red-400 animate-[shake_0.2s]"
-              : dueDate
-                ? isOverdue
-                  ? "border-red-500 text-red-400"
-                  : "border-[#22d3ee] text-[#22d3ee]"
-                : "border-gray-600 text-gray-400 hover:border-gray-500"
-          }
-          ${size === "small" ? "text-xs py-1 px-2.5" : "py-[14px] text-[15px]"}
+        className={`flex items-center gap-1.5 px-3 rounded-xl text-sm transition-all border whitespace-nowrap
+          ${stateClasses[state]}
+          ${sizeClasses[size]}
         `}
       >
         📅
