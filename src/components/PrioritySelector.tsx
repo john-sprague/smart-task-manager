@@ -3,12 +3,18 @@ import type { Priority } from "../types/Task";
 import { PRIORITY_LEVELS } from "../constants";
 
 interface Props {
-  priority: Priority;
+  priority: Priority | null;
   onChange: (priority: Priority) => void;
   size?: "small" | "medium" | "large";
+  hasError?: boolean;
 }
 
-const PrioritySelector = ({ priority, onChange, size = "medium" }: Props) => {
+const PrioritySelector = ({
+  priority,
+  onChange,
+  size = "medium",
+  hasError = false,
+}: Props) => {
   const options = [
     {
       value: PRIORITY_LEVELS.HIGH.value,
@@ -34,20 +40,29 @@ const PrioritySelector = ({ priority, onChange, size = "medium" }: Props) => {
   };
 
   return (
-    <div className="flex gap-1">
+    <div
+      className={`flex gap-1 p-1 rounded-xl transition-all
+    ${hasError ? "ring-2 ring-red-500" : ""}
+  `}
+      role="radiogroup"
+      aria-invalid={hasError}
+    >
       {options.map((opt) => (
         <button
           key={opt.value}
           type="button"
           onClick={() => onChange(opt.value)}
+          role="radio"
+          aria-checked={priority === opt.value}
           className={`flex items-center justify-center rounded-xl transition-all border
-            ${sizeClasses[size]}
-            ${
-              priority === opt.value
-                ? "bg-[#334155] border-[#22d3ee] ring-1 ring-[#22d3ee]"
-                : "border-transparent hover:bg-[#334155] text-gray-400 hover:text-gray-200"
-            }`}
-          title={`${opt.value} priority`}
+          ${sizeClasses[size]}
+          ${
+            priority === opt.value
+              ? "bg-[#334155] border-[#22d3ee] ring-1 ring-[#22d3ee]"
+              : "border-transparent hover:bg-[#334155] text-gray-400 hover:text-gray-200"
+          }
+        `}
+          title={`${opt.label} priority`}
         >
           <span>{opt.emoji}</span>
         </button>

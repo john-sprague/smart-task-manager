@@ -4,9 +4,15 @@ interface Props {
   dueDate?: string;
   onChange: (date: string | undefined) => void;
   size?: "small" | "normal";
+  hasError?: boolean;
 }
 
-const DueDatePicker = ({ dueDate, onChange, size = "normal" }: Props) => {
+const DueDatePicker = ({
+  dueDate,
+  onChange,
+  size = "normal",
+  hasError = false,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -49,12 +55,16 @@ const DueDatePicker = ({ dueDate, onChange, size = "normal" }: Props) => {
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-sm transition-all border whitespace-nowrap
           ${
-            dueDate
-              ? isOverdue
-                ? "border-red-500 text-red-400"
-                : "border-[#22d3ee] text-[#22d3ee]"
-              : "border-gray-600 text-gray-400 hover:border-gray-500"
-          } ${size === "small" ? "text-xs py-1 px-2.5" : "py-[14px] text-[15px]"}`}
+            hasError
+              ? "border-red-500 text-red-400"
+              : dueDate
+                ? isOverdue
+                  ? "border-red-500 text-red-400"
+                  : "border-[#22d3ee] text-[#22d3ee]"
+                : "border-gray-600 text-gray-400 hover:border-gray-500"
+          }
+          ${size === "small" ? "text-xs py-1 px-2.5" : "py-[14px] text-[15px]"}
+        `}
       >
         📅
         {formattedDate ? (
@@ -62,7 +72,9 @@ const DueDatePicker = ({ dueDate, onChange, size = "normal" }: Props) => {
             {formattedDate}
           </span>
         ) : (
-          <span className="text-gray-500">Set due date</span>
+          <span className={hasError ? "text-red-400" : "text-gray-500"}>
+            Select due date
+          </span>
         )}
       </button>
 
