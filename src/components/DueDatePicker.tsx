@@ -73,6 +73,7 @@ const DueDatePicker = ({
       <button
         ref={buttonRef}
         type="button"
+        aria-invalid={hasError}
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-1.5 px-3 rounded-xl text-sm transition-all border whitespace-nowrap
           ${stateClasses[state]}
