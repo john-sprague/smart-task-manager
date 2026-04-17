@@ -9,7 +9,11 @@ export function useTasks() {
     saveTasks(tasks);
   }, [tasks]);
 
-  const addTask = (text: string, priority: Priority, dueDate: string): void => {
+  const addTask = (
+    text: string,
+    priority: Priority,
+    dueDate?: string,
+  ): void => {
     if (!text.trim() || !dueDate) return;
 
     const newTask: Task = {

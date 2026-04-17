@@ -5,6 +5,7 @@ interface Props {
   onChange: (date: string | undefined) => void;
   size?: "small" | "normal";
   hasError?: boolean;
+  ariaDescribedBy?: string;
 }
 
 const DueDatePicker = ({
@@ -12,6 +13,7 @@ const DueDatePicker = ({
   onChange,
   size = "normal",
   hasError = false,
+  ariaDescribedBy,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -74,6 +76,7 @@ const DueDatePicker = ({
         ref={buttonRef}
         type="button"
         aria-invalid={hasError}
+        aria-describedby={ariaDescribedBy}
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-1.5 px-3 rounded-xl text-sm transition-all border whitespace-nowrap
           ${stateClasses[state]}

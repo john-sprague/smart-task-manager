@@ -7,6 +7,7 @@ interface Props {
   onChange: (priority: Priority) => void;
   size?: "small" | "medium" | "large";
   hasError?: boolean;
+  ariaDescribedBy?: string;
 }
 
 const PrioritySelector = ({
@@ -14,6 +15,7 @@ const PrioritySelector = ({
   onChange,
   size = "medium",
   hasError = false,
+  ariaDescribedBy,
 }: Props) => {
   const options = [
     {
@@ -45,6 +47,7 @@ const PrioritySelector = ({
     ${hasError ? "ring-1 ring-red-500  animate-[shake_0.2s]" : ""}`}
       role="radiogroup"
       aria-invalid={hasError}
+      aria-describedby={ariaDescribedBy}
     >
       {options.map((opt) => {
         const isSelected = priority === opt.value;
