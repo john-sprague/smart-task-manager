@@ -1,6 +1,7 @@
 import React from "react";
 import type { Priority } from "../types/Task";
 import { PRIORITY_LEVELS } from "../constants";
+import { useI18n } from "../hooks/useI18n";
 
 interface Props {
   priority: Priority | null;
@@ -17,34 +18,37 @@ const PrioritySelector = ({
   hasError = false,
   ariaDescribedBy,
 }: Props) => {
+  const { t } = useI18n();
+
   const options = [
     {
       value: PRIORITY_LEVELS.HIGH.value,
       emoji: "🔴",
-      label: PRIORITY_LEVELS.HIGH.label,
+      label: t(PRIORITY_LEVELS.HIGH.labelKey),
     },
     {
       value: PRIORITY_LEVELS.MEDIUM.value,
       emoji: "🟠",
-      label: PRIORITY_LEVELS.MEDIUM.label,
+      label: t(PRIORITY_LEVELS.MEDIUM.labelKey),
     },
     {
       value: PRIORITY_LEVELS.LOW.value,
       emoji: "🔵",
-      label: PRIORITY_LEVELS.LOW.label,
+      label: t(PRIORITY_LEVELS.LOW.labelKey),
     },
   ];
 
   const sizeClasses = {
-    small: "w-8 h-8 text-lg", // Used in TaskItem bottom row
-    medium: "w-9 h-9 text-xl", // Current default
-    large: "w-10 h-10 text-2xl", // For TaskInput (creation)
+    small: "w-8 h-8 text-lg",
+    medium: "w-9 h-9 text-xl",
+    large: "w-10 h-10 text-2xl",
   };
 
   return (
     <div
-      className={`flex gap-1 p-1 rounded-xl transition-all
-    ${hasError ? "ring-1 ring-red-500  animate-[shake_0.2s]" : ""}`}
+      className={`flex gap-1 p-1 rounded-xl transition-all ${
+        hasError ? "ring-1 ring-red-500 animate-[shake_0.2s]" : ""
+      }`}
       role="radiogroup"
       aria-invalid={hasError}
       aria-describedby={ariaDescribedBy}
@@ -64,10 +68,8 @@ const PrioritySelector = ({
             role="radio"
             aria-checked={isSelected}
             className={`flex items-center justify-center rounded-xl transition-all border
-            ${sizeClasses[size]}
-            ${stateClasses}
-          `}
-            title={`${opt.label} priority`}
+              ${sizeClasses[size]}
+              ${stateClasses}`}
           >
             <span>{opt.emoji}</span>
           </button>

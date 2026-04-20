@@ -2,6 +2,7 @@ import React, { useRef, useState, FormEvent } from "react";
 import DueDatePicker from "./DueDatePicker";
 import PrioritySelector from "./PrioritySelector";
 import FormField from "./FormField";
+import { useI18n } from "../hooks/useI18n";
 import type { Priority } from "../types/Task";
 
 interface Props {
@@ -15,6 +16,8 @@ type Errors = {
 };
 
 const TaskInput = ({ onAdd }: Props) => {
+  const { t } = useI18n();
+
   const [value, setValue] = useState<string>("");
   const [dueDate, setDueDate] = useState<string | undefined>(undefined);
   const [priority, setPriority] = useState<Priority | null>(null);
@@ -25,9 +28,9 @@ const TaskInput = ({ onAdd }: Props) => {
   const validate = (): Errors => {
     const newErrors: Errors = {};
 
-    if (!value.trim()) newErrors.value = "Task is required";
-    if (!priority) newErrors.priority = "Select a priority";
-    if (!dueDate) newErrors.dueDate = "Due date is required";
+    if (!value.trim()) newErrors.value = t("validation.taskRequired");
+    if (!priority) newErrors.priority = t("validation.priorityRequired");
+    if (!dueDate) newErrors.dueDate = t("validation.dueDateRequired");
 
     return newErrors;
   };
@@ -56,12 +59,7 @@ const TaskInput = ({ onAdd }: Props) => {
   return (
     <form onSubmit={handleSubmit} className="mb-8">
       <div className="flex flex-col lg:flex-row gap-3">
-        <FormField
-          label="Task"
-          required
-          error={errors.value}
-          className="flex-1"
-        >
+        <FormField error={errors.value} className="flex-1">
           {({ describedBy, invalid }) => (
             <input
               ref={inputRef}
@@ -75,7 +73,7 @@ const TaskInput = ({ onAdd }: Props) => {
                   setErrors((prev) => ({ ...prev, value: undefined }));
                 }
               }}
-              placeholder="Add a new task..."
+              placeholder={t("taskInput.taskPlaceholder")}
               className={`w-full bg-[#0f172a] border ${
                 invalid
                   ? "border-red-500 animate-[shake_0.2s]"
@@ -88,12 +86,7 @@ const TaskInput = ({ onAdd }: Props) => {
         </FormField>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 lg:min-w-fit mt-4 pt-3 lg:m-0 lg:p-0 border-t border-[#334155] lg:border-none">
-          <FormField
-            label="Priority"
-            required
-            error={errors.priority}
-            align="center"
-          >
+          <FormField error={errors.priority} align="center">
             {({ describedBy, invalid }) => (
               <PrioritySelector
                 priority={priority}
@@ -110,12 +103,7 @@ const TaskInput = ({ onAdd }: Props) => {
             )}
           </FormField>
 
-          <FormField
-            label="Due date"
-            required
-            error={errors.dueDate}
-            align="center"
-          >
+          <FormField error={errors.dueDate} align="center">
             {({ describedBy, invalid }) => (
               <DueDatePicker
                 dueDate={dueDate}
@@ -137,7 +125,7 @@ const TaskInput = ({ onAdd }: Props) => {
             className="w-full sm:w-auto sm:self-end bg-[#22d3ee] hover:bg-[#06b6d4] text-[#0a1428]
               font-semibold px-8 py-3.5 rounded-2xl transition-all active:scale-95 whitespace-nowrap"
           >
-            Add Task
+            {t("taskInput.submitButton")}
           </button>
         </div>
       </div>

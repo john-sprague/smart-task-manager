@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useI18n } from "../hooks/useI18n";
 
 interface Props {
   dueDate?: string;
@@ -15,12 +16,13 @@ const DueDatePicker = ({
   hasError = false,
   ariaDescribedBy,
 }: Props) => {
+  const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const formattedDate = dueDate
-    ? new Intl.DateTimeFormat("en-US", {
+    ? new Intl.DateTimeFormat(t("dueDate.locale"), {
         month: "short",
         day: "numeric",
       }).format(new Date(dueDate))
@@ -29,17 +31,14 @@ const DueDatePicker = ({
   const isOverdue =
     dueDate && new Date(dueDate) < new Date(new Date().setHours(0, 0, 0, 0));
 
-  // Smart positioning to prevent going off-screen
   useEffect(() => {
     if (!isOpen || !buttonRef.current || !popoverRef.current) return;
 
     const buttonRect = buttonRef.current.getBoundingClientRect();
     const popover = popoverRef.current;
-
     const spaceOnRight = window.innerWidth - buttonRect.right;
-    const popoverWidth = 288; // approx width of popover (w-72)
+    const popoverWidth = 288;
 
-    // If not enough space on the right, align to the right edge of the button
     if (spaceOnRight < popoverWidth) {
       popover.style.left = "auto";
       popover.style.right = "0";
@@ -80,8 +79,7 @@ const DueDatePicker = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-1.5 px-3 rounded-xl text-sm transition-all border whitespace-nowrap
           ${stateClasses[state]}
-          ${sizeClasses[size]}
-        `}
+          ${sizeClasses[size]}`}
       >
         📅
         {formattedDate ? (
@@ -90,7 +88,7 @@ const DueDatePicker = ({
           </span>
         ) : (
           <span className={hasError ? "text-red-400" : "text-gray-500"}>
-            Select due date
+            {t("dueDate.select")}
           </span>
         )}
       </button>
@@ -127,7 +125,7 @@ const DueDatePicker = ({
               type="button"
               className="mt-4 text-red-400 hover:text-red-500 text-sm w-full py-2.5 rounded-xl hover:bg-red-950/30"
             >
-              Clear due date
+              {t("dueDate.clear")}
             </button>
           )}
 

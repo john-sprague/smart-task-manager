@@ -2,6 +2,7 @@ import React from "react";
 import type { Task, Priority } from "../types/Task";
 import PrioritySelector from "./PrioritySelector";
 import DueDatePicker from "./DueDatePicker";
+import { useI18n } from "../hooks/useI18n";
 
 interface Props {
   task: Task;
@@ -18,6 +19,8 @@ const TaskItem = ({
   onPriorityChange,
   onDueDateChange,
 }: Props) => {
+  const { t } = useI18n();
+
   return (
     <div className="group bg-[#0f172a] border border-[#334155] rounded-2xl px-4 py-4 mb-3 hover:border-[#475569] transition-all">
       <div className="flex items-center gap-3">
@@ -56,7 +59,7 @@ const TaskItem = ({
           <button
             onClick={() => onDelete(task.id)}
             className="text-gray-400 hover:text-red-500 text-2xl p-2 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-all"
-            aria-label="Delete task"
+            aria-label={t("task.delete")}
           >
             ✕
           </button>

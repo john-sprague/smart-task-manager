@@ -1,8 +1,6 @@
 import React, { ReactNode, useId } from "react";
 
 interface FormFieldProps {
-  label?: string;
-  required?: boolean;
   error?: string;
   children: (props: { describedBy?: string; invalid: boolean }) => ReactNode;
   className?: string;
@@ -10,8 +8,6 @@ interface FormFieldProps {
 }
 
 const FormField = ({
-  label,
-  required = false,
   error,
   children,
   className = "",
@@ -28,13 +24,6 @@ const FormField = ({
         className,
       ].join(" ")}
     >
-      {label && (
-        <label className="text-xs font-medium text-slate-300">
-          {label}
-          {required && <span className="ml-1 text-red-400">*</span>}
-        </label>
-      )}
-
       {children({
         describedBy: errorId,
         invalid: Boolean(error),
