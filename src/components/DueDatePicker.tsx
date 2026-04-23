@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useI18n } from "../hooks/useI18n";
+import { SIZE } from "../constants";
 
 interface Props {
   dueDate?: string;
   onChange: (date: string | undefined) => void;
-  size?: "small" | "normal";
+  size?: typeof SIZE.SMALL | typeof SIZE.MEDIUM;
   hasError?: boolean;
   ariaDescribedBy?: string;
 }
@@ -12,7 +13,7 @@ interface Props {
 const DueDatePicker = ({
   dueDate,
   onChange,
-  size = "normal",
+  size = SIZE.MEDIUM,
   hasError = false,
   ariaDescribedBy,
 }: Props) => {
@@ -64,7 +65,7 @@ const DueDatePicker = ({
 
   const sizeClasses = {
     small: "text-xs py-1 px-2.5",
-    normal: "py-[14px] text-[15px]",
+    medium: "py-[14px] text-[15px]",
   };
 
   const state = getDueDateState();

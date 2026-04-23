@@ -20,3 +20,11 @@ export const LOCALES = {
 } as const;
 
 export type Locale = (typeof LOCALES)[keyof typeof LOCALES];
+
+export const SIZE = {
+  SMALL: "small",
+  MEDIUM: "medium",
+  LARGE: "large",
+} as const;
+
+export type Size = (typeof SIZE)[keyof typeof SIZE];

@@ -1,12 +1,12 @@
 import React from "react";
 import type { Priority } from "../types/Task";
-import { PRIORITY_LEVELS } from "../constants";
+import { PRIORITY_LEVELS, SIZE, type Size } from "../constants";
 import { useI18n } from "../hooks/useI18n";
 
 interface Props {
   priority: Priority | null;
   onChange: (priority: Priority) => void;
-  size?: "small" | "medium" | "large";
+  size?: Size;
   hasError?: boolean;
   ariaDescribedBy?: string;
 }
@@ -14,7 +14,7 @@ interface Props {
 const PrioritySelector = ({
   priority,
   onChange,
-  size = "medium",
+  size = SIZE.MEDIUM,
   hasError = false,
   ariaDescribedBy,
 }: Props) => {
