@@ -4,7 +4,7 @@ import { SIZE } from "../constants";
 
 interface Props {
   dueDate?: string;
-  onChange: (date: string | undefined) => void;
+  onChange: (date: string) => void;
   size?: typeof SIZE.SMALL | typeof SIZE.MEDIUM;
   hasError?: boolean;
   ariaDescribedBy?: string;
@@ -104,7 +104,9 @@ const DueDatePicker = ({
               type="date"
               value={dueDate || ""}
               onChange={(e) => {
-                onChange(e.target.value || undefined);
+                const next = e.target.value;
+                if (!next) return;
+                onChange(next);
                 setIsOpen(false);
               }}
               className="w-full bg-[#0f172a] border border-[#475569] rounded-xl px-4 py-3.5 text-white 
@@ -116,19 +118,6 @@ const DueDatePicker = ({
               📅
             </div>
           </div>
-
-          {dueDate && (
-            <button
-              onClick={() => {
-                onChange(undefined);
-                setIsOpen(false);
-              }}
-              type="button"
-              className="mt-4 text-red-400 hover:text-red-500 text-sm w-full py-2.5 rounded-xl hover:bg-red-950/30"
-            >
-              {t("dueDate.clear")}
-            </button>
-          )}
 
           <div
             className="fixed inset-0 z-[-1]"

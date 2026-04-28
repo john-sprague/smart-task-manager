@@ -9,7 +9,7 @@ interface Props {
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onPriorityChange: (id: string, priority: Priority) => void;
-  onDueDateChange: (id: string, dueDate: string | undefined) => void;
+  onDueDateChange: (id: string, dueDate: string) => void;
 }
 
 const TaskItem = ({

@@ -37,7 +37,7 @@ const App = () => {
     updateTaskPriority(id, priority);
   };
 
-  const handleDueDateChange = (id: string, dueDate: string | undefined) => {
+  const handleDueDateChange = (id: string, dueDate: string) => {
     updateDueDate(id, dueDate);
   };
 

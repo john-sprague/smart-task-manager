@@ -6,7 +6,7 @@ import { useI18n } from "../hooks/useI18n";
 import type { Priority } from "../types/Task";
 
 interface Props {
-  onAdd: (text: string, priority: Priority, dueDate?: string) => void;
+  onAdd: (text: string, priority: Priority, dueDate: string) => void;
 }
 
 type Errors = {
@@ -19,7 +19,7 @@ const TaskInput = ({ onAdd }: Props) => {
   const { t } = useI18n();
 
   const [value, setValue] = useState<string>("");
-  const [dueDate, setDueDate] = useState<string | undefined>(undefined);
+  const [dueDate, setDueDate] = useState<string>("");
   const [priority, setPriority] = useState<Priority | null>(null);
   const [errors, setErrors] = useState<Errors>({});
 
@@ -51,7 +51,7 @@ const TaskInput = ({ onAdd }: Props) => {
     onAdd(value.trim(), priority!, dueDate);
 
     setValue("");
-    setDueDate(undefined);
+    setDueDate("");
     setPriority(null);
     setErrors({});
   };

@@ -10,6 +10,6 @@ export interface Task {
   text: string;
   completed: boolean;
   priority: Priority;
-  dueDate?: string; // Format "2026-04-15"
+  dueDate: string; // Format "2026-04-15"
   createdAt: number;
 }

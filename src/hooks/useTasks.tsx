@@ -9,12 +9,8 @@ export function useTasks() {
     saveTasks(tasks);
   }, [tasks]);
 
-  const addTask = (
-    text: string,
-    priority: Priority,
-    dueDate?: string,
-  ): void => {
-    if (!text.trim() || !dueDate) return;
+  const addTask = (text: string, priority: Priority, dueDate: string): void => {
+    if (!text.trim()) return;
 
     const newTask: Task = {
       id: crypto.randomUUID(),
@@ -48,11 +44,9 @@ export function useTasks() {
     );
   };
 
-  const updateDueDate = (id: string, dueDate: string | undefined): void => {
+  const updateDueDate = (id: string, dueDate: string): void => {
     setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, dueDate: dueDate } : task,
-      ),
+      prev.map((task) => (task.id === id ? { ...task, dueDate } : task)),
     );
   };
 
