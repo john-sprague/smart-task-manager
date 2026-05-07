@@ -3,6 +3,7 @@ import DueDatePicker from "./DueDatePicker";
 import PrioritySelector from "./PrioritySelector";
 import FormField from "./FormField";
 import { useI18n } from "../hooks/useI18n";
+import { SIZE } from "../constants";
 import type { Priority } from "../types/Task";
 
 interface Props {
@@ -96,7 +97,7 @@ const TaskInput = ({ onAdd }: Props) => {
                     setErrors((prev) => ({ ...prev, priority: undefined }));
                   }
                 }}
-                size="medium"
+                size={SIZE.MEDIUM}
                 hasError={invalid}
                 ariaDescribedBy={describedBy}
               />
@@ -113,7 +114,7 @@ const TaskInput = ({ onAdd }: Props) => {
                     setErrors((prev) => ({ ...prev, dueDate: undefined }));
                   }
                 }}
-                size="normal"
+                size={SIZE.MEDIUM}
                 hasError={invalid}
                 ariaDescribedBy={describedBy}
               />

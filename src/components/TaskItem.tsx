@@ -3,6 +3,7 @@ import type { Task, Priority } from "../types/Task";
 import PrioritySelector from "./PrioritySelector";
 import DueDatePicker from "./DueDatePicker";
 import { useI18n } from "../hooks/useI18n";
+import { SIZE } from "../constants";
 
 interface Props {
   task: Task;
@@ -46,14 +47,14 @@ const TaskItem = ({
         <PrioritySelector
           priority={task.priority}
           onChange={(p) => onPriorityChange(task.id, p)}
-          size="small"
+          size={SIZE.SMALL}
         />
 
         <div className="flex items-center gap-2">
           <DueDatePicker
             dueDate={task.dueDate}
             onChange={(date) => onDueDateChange(task.id, date)}
-            size="small"
+            size={SIZE.SMALL}
           />
 
           <button
