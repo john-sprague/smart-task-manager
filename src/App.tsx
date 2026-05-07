@@ -53,7 +53,7 @@ const App = () => {
             value={locale}
             onChange={(e) => setLocale(e.target.value as typeof locale)}
             className="bg-[#1e2937] border border-[#334155] text-white rounded-xl px-3 py-2"
-            aria-label="Language selector"
+            aria-label={t("app.languageSelector")}
           >
             <option value={LOCALES.EN}>English</option>
             <option value={LOCALES.ES}>Español</option>

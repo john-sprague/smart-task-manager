@@ -6,6 +6,7 @@ export const messages = {
       title: "Smart Task Manager",
       empty: "No tasks yet. Add one above!",
       noResults: 'No tasks found for "{query}"',
+      languageSelector: "Language selector",
     },
     taskInput: {
       taskLabel: "Task",
@@ -47,6 +48,7 @@ export const messages = {
       title: "Administrador Inteligente de Tareas",
       empty: "Todavía no hay tareas. Agrega una arriba.",
       noResults: 'No se encontraron tareas para "{query}"',
+      languageSelector: "Selector de idioma",
     },
     taskInput: {
       taskLabel: "Tarea",

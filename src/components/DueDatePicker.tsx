@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useI18n } from "../hooks/useI18n";
-import { SIZE } from "../constants";
+import { DUE_DATE, SIZE } from "../constants";
 
 interface Props {
   dueDate?: string;
@@ -24,8 +24,7 @@ const DueDatePicker = ({
 
   const formattedDate = dueDate
     ? new Intl.DateTimeFormat(t("dueDate.locale"), {
-        month: "short",
-        day: "numeric",
+        ...DUE_DATE.DISPLAY_FORMAT,
       }).format(new Date(dueDate))
     : null;
 
@@ -38,7 +37,7 @@ const DueDatePicker = ({
     const buttonRect = buttonRef.current.getBoundingClientRect();
     const popover = popoverRef.current;
     const spaceOnRight = window.innerWidth - buttonRect.right;
-    const popoverWidth = 288;
+    const popoverWidth = DUE_DATE.POPOVER_WIDTH_PX;
 
     if (spaceOnRight < popoverWidth) {
       popover.style.left = "auto";
@@ -50,22 +49,10 @@ const DueDatePicker = ({
   }, [isOpen]);
 
   const getDueDateState = () => {
-    if (hasError) return "error";
-    if (!dueDate) return "empty";
-    if (isOverdue) return "overdue";
-    return "active";
-  };
-
-  const stateClasses = {
-    error: "border-red-500 text-red-400",
-    overdue: "border-red-500 text-red-400",
-    active: "border-[#22d3ee] text-[#22d3ee]",
-    empty: "border-gray-600 text-gray-400 hover:border-gray-500",
-  };
-
-  const sizeClasses = {
-    small: "text-xs py-1 px-2.5",
-    medium: "py-[14px] text-[15px]",
+    if (hasError) return DUE_DATE.STATE.ERROR;
+    if (!dueDate) return DUE_DATE.STATE.EMPTY;
+    if (isOverdue) return DUE_DATE.STATE.OVERDUE;
+    return DUE_DATE.STATE.ACTIVE;
   };
 
   const state = getDueDateState();
@@ -79,8 +66,8 @@ const DueDatePicker = ({
         aria-describedby={ariaDescribedBy}
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-1.5 px-3 rounded-xl text-sm transition-all border whitespace-nowrap
-          ${stateClasses[state]}
-          ${sizeClasses[size]}`}
+          ${DUE_DATE.STATE_CLASSES[state]}
+          ${DUE_DATE.SIZE_CLASSES[size]}`}
       >
         📅
         {formattedDate ? (
