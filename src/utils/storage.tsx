@@ -37,5 +37,9 @@ export const loadTasks = (): Task[] => {
 };
 
 export const saveTasks = (tasks: Task[]): void => {
-  localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(tasks));
+  try {
+    localStorage.setItem(STORAGE_KEYS.TASKS, JSON.stringify(tasks));
+  } catch {
+    // Ignore persistence failures (quota / private mode / disabled storage).
+  }
 };
