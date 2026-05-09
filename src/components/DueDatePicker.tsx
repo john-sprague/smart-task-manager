@@ -65,11 +65,14 @@ const DueDatePicker = ({
         aria-invalid={hasError}
         aria-describedby={ariaDescribedBy}
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1.5 px-3 rounded-xl text-sm transition-all border whitespace-nowrap
+        className={`inline-flex items-center gap-1.5 px-4 rounded-2xl leading-normal transition-all border whitespace-nowrap
+          focus:outline-none focus:border-[#22d3ee] focus:ring-2 focus:ring-[#22d3ee]/30
           ${DUE_DATE.STATE_CLASSES[state]}
           ${DUE_DATE.SIZE_CLASSES[size]}`}
       >
-        📅
+        <span className="leading-none" aria-hidden>
+          📅
+        </span>
         {formattedDate ? (
           <span className={isOverdue ? "line-through" : ""}>
             {formattedDate}
@@ -96,9 +99,8 @@ const DueDatePicker = ({
                 onChange(next);
                 setIsOpen(false);
               }}
-              className="w-full bg-[#0f172a] border border-[#475569] rounded-xl px-4 py-3.5 text-white 
-                         focus:outline-none focus:border-[#22d3ee] cursor-pointer
-                         file:text-[#22d3ee] file:bg-transparent file:border-0"
+              className="w-full bg-[#0f172a] border border-[#475569] rounded-2xl px-4 py-3.5 text-white cursor-pointer
+                         focus:outline-none focus:border-[#22d3ee] focus:ring-2 focus:ring-[#22d3ee]/30"
             />
 
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#22d3ee] pointer-events-none">
