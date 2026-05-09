@@ -86,7 +86,7 @@ const TaskInput = ({ onAdd }: Props) => {
           )}
         </FormField>
 
-        <div className="flex flex-col sm:flex-row items-center gap-3 lg:min-w-fit mt-4 pt-3 lg:m-0 lg:p-0 border-t border-[#334155] lg:border-none">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3 lg:min-w-fit mt-4 pt-3 lg:m-0 lg:p-0 border-t border-[#334155] lg:border-none">
           <FormField error={errors.priority} align="center">
             {({ describedBy, invalid }) => (
               <PrioritySelector
@@ -123,7 +123,7 @@ const TaskInput = ({ onAdd }: Props) => {
 
           <button
             type="submit"
-            className="w-full sm:w-auto sm:self-end bg-[#22d3ee] hover:bg-[#06b6d4] text-[#0a1428]
+            className="w-full sm:w-auto sm:self-start bg-[#22d3ee] hover:bg-[#06b6d4] text-[#0a1428]
               font-semibold px-8 py-3.5 rounded-2xl transition-all active:scale-95 whitespace-nowrap"
           >
             {t("taskInput.submitButton")}
