@@ -24,9 +24,9 @@ const PrioritySelector = ({
 
   const options = [
     {
-      value: PRIORITY_LEVELS.HIGH.value,
-      emoji: "🔴",
-      label: t(PRIORITY_LEVELS.HIGH.labelKey),
+      value: PRIORITY_LEVELS.LOW.value,
+      emoji: "🔵",
+      label: t(PRIORITY_LEVELS.LOW.labelKey),
     },
     {
       value: PRIORITY_LEVELS.MEDIUM.value,
@@ -34,9 +34,9 @@ const PrioritySelector = ({
       label: t(PRIORITY_LEVELS.MEDIUM.labelKey),
     },
     {
-      value: PRIORITY_LEVELS.LOW.value,
-      emoji: "🔵",
-      label: t(PRIORITY_LEVELS.LOW.labelKey),
+      value: PRIORITY_LEVELS.HIGH.value,
+      emoji: "🔴",
+      label: t(PRIORITY_LEVELS.HIGH.labelKey),
     },
   ];
 
