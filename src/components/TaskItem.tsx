@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import type { Task, Priority } from "../types/Task";
 import PrioritySelector from "./PrioritySelector";
 import DueDatePicker from "./DueDatePicker";
@@ -21,6 +21,12 @@ const TaskItem = ({
   onDueDateChange,
 }: Props) => {
   const { t } = useI18n();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const canExpand = useMemo(() => {
+    // Simple heuristic: avoid measuring layout; keep UI predictable.
+    return task.text.trim().length > 120 || task.text.includes("\n");
+  }, [task.text]);
 
   return (
     <div className="group bg-[#0f172a] border border-[#334155] rounded-2xl px-4 py-4 mb-3 hover:border-[#475569] transition-all">
@@ -33,13 +39,25 @@ const TaskItem = ({
         />
 
         <div className="flex-1 min-w-0">
-          <span
-            className={`text-white text-[17px] leading-relaxed break-words ${
-              task.completed ? "line-through text-gray-500" : ""
-            }`}
-          >
-            {task.text}
-          </span>
+          <div className="flex items-start justify-between gap-3">
+            <span
+              className={`text-white text-[17px] leading-relaxed break-words ${
+                isExpanded ? "" : "line-clamp-2"
+              } ${task.completed ? "line-through text-gray-500" : ""}`}
+            >
+              {task.text}
+            </span>
+
+            {canExpand && (
+              <button
+                type="button"
+                onClick={() => setIsExpanded((v) => !v)}
+                className="flex-shrink-0 text-xs text-gray-400 hover:text-gray-200 transition-colors mt-1"
+              >
+                {isExpanded ? "Show less" : "Show more"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

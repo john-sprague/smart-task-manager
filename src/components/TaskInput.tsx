@@ -1,4 +1,4 @@
-import React, { useRef, useState, FormEvent } from "react";
+import React, { useLayoutEffect, useRef, useState, FormEvent } from "react";
 import DueDatePicker from "./DueDatePicker";
 import PrioritySelector from "./PrioritySelector";
 import FormField from "./FormField";
@@ -24,7 +24,20 @@ const TaskInput = ({ onAdd }: Props) => {
   const [priority, setPriority] = useState<Priority | null>(null);
   const [errors, setErrors] = useState<Errors>({});
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const syncTextareaHeight = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    // Allow shrink + grow reliably.
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  };
+
+  useLayoutEffect(() => {
+    // Auto-grow textarea up to a max height; after that it scrolls.
+    syncTextareaHeight();
+  }, [value]);
 
   const validate = (): Errors => {
     const newErrors: Errors = {};
@@ -55,6 +68,9 @@ const TaskInput = ({ onAdd }: Props) => {
     setDueDate("");
     setPriority(null);
     setErrors({});
+
+    // Force-collapse immediately; layout effect will also run once `value` is "".
+    if (inputRef.current) inputRef.current.style.height = "auto";
   };
 
   return (
@@ -62,20 +78,27 @@ const TaskInput = ({ onAdd }: Props) => {
       <div className="flex flex-col lg:flex-row gap-3">
         <FormField error={errors.value} className="flex-1">
           {({ describedBy, invalid }) => (
-            <input
+            <textarea
               ref={inputRef}
-              type="text"
               value={value}
               aria-invalid={invalid}
               aria-describedby={describedBy}
+              rows={1}
               onChange={(e) => {
                 setValue(e.target.value);
                 if (errors.value) {
                   setErrors((prev) => ({ ...prev, value: undefined }));
                 }
               }}
+              onKeyDown={(e) => {
+                if (e.key !== "Enter" || e.shiftKey) return;
+                e.preventDefault();
+                (
+                  e.currentTarget.form as HTMLFormElement | null
+                )?.requestSubmit();
+              }}
               placeholder={t("taskInput.taskPlaceholder")}
-              className={`w-full bg-[#0f172a] border ${
+              className={`w-full resize-none overflow-y-auto max-h-40 bg-[#0f172a] border ${
                 invalid
                   ? "border-red-500 animate-[shake_0.2s]"
                   : "border-[#475569]"
