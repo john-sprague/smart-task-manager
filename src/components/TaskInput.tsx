@@ -86,8 +86,12 @@ const TaskInput = ({ onAdd }: Props) => {
           )}
         </FormField>
 
-        <div className="flex flex-col sm:flex-row sm:items-start gap-3 lg:min-w-fit mt-4 pt-3 lg:m-0 lg:p-0 border-t border-[#334155] lg:border-none">
-          <FormField error={errors.priority} align="center">
+        <div className="flex flex-col sm:flex-row sm:items-start md:items-stretch md:w-full lg:w-auto gap-3 lg:min-w-fit mt-4 pt-3 lg:m-0 lg:p-0 border-t border-[#334155] lg:border-none">
+          <FormField
+            error={errors.priority}
+            align="center"
+            className="w-full sm:w-auto md:flex-1 lg:flex-none"
+          >
             {({ describedBy, invalid }) => (
               <PrioritySelector
                 priority={priority}
@@ -98,13 +102,18 @@ const TaskInput = ({ onAdd }: Props) => {
                   }
                 }}
                 size={SIZE.MEDIUM}
+                fullWidth
                 hasError={invalid}
                 ariaDescribedBy={describedBy}
               />
             )}
           </FormField>
 
-          <FormField error={errors.dueDate} align="center">
+          <FormField
+            error={errors.dueDate}
+            align="center"
+            className="w-full sm:w-auto md:flex-1 lg:flex-none"
+          >
             {({ describedBy, invalid }) => (
               <DueDatePicker
                 dueDate={dueDate}
@@ -115,6 +124,7 @@ const TaskInput = ({ onAdd }: Props) => {
                   }
                 }}
                 size={SIZE.MEDIUM}
+                fullWidth
                 hasError={invalid}
                 ariaDescribedBy={describedBy}
               />
@@ -123,7 +133,7 @@ const TaskInput = ({ onAdd }: Props) => {
 
           <button
             type="submit"
-            className="w-full sm:w-auto sm:self-start bg-[#22d3ee] hover:bg-[#06b6d4] text-[#0a1428]
+            className="w-full sm:w-auto md:flex-1 lg:flex-none sm:self-start bg-[#22d3ee] hover:bg-[#06b6d4] text-[#0a1428]
               font-semibold px-8 py-3.5 rounded-2xl transition-all active:scale-95 whitespace-nowrap"
           >
             {t("taskInput.submitButton")}

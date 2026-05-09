@@ -8,6 +8,7 @@ interface Props {
   size?: typeof SIZE.SMALL | typeof SIZE.MEDIUM;
   hasError?: boolean;
   ariaDescribedBy?: string;
+  fullWidth?: boolean;
 }
 
 const DueDatePicker = ({
@@ -16,6 +17,7 @@ const DueDatePicker = ({
   size = SIZE.MEDIUM,
   hasError = false,
   ariaDescribedBy,
+  fullWidth = false,
 }: Props) => {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
@@ -58,14 +60,14 @@ const DueDatePicker = ({
   const state = getDueDateState();
 
   return (
-    <div className="relative inline-block">
+    <div className={`relative ${fullWidth ? "block w-full" : "inline-block"}`}>
       <button
         ref={buttonRef}
         type="button"
         aria-invalid={hasError}
         aria-describedby={ariaDescribedBy}
         onClick={() => setIsOpen(!isOpen)}
-        className={`inline-flex items-center gap-1.5 px-4 rounded-2xl leading-normal transition-all border whitespace-nowrap
+        className={`inline-flex items-center gap-1.5 px-4 rounded-2xl leading-normal transition-all border whitespace-nowrap ${fullWidth ? "w-full justify-center" : ""}
           focus:outline-none focus:border-[#22d3ee] focus:ring-2 focus:ring-[#22d3ee]/30
           ${DUE_DATE.STATE_CLASSES[state]}
           ${DUE_DATE.SIZE_CLASSES[size]}`}

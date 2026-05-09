@@ -9,6 +9,7 @@ interface Props {
   size?: Size;
   hasError?: boolean;
   ariaDescribedBy?: string;
+  fullWidth?: boolean;
 }
 
 const PrioritySelector = ({
@@ -17,6 +18,7 @@ const PrioritySelector = ({
   size = SIZE.MEDIUM,
   hasError = false,
   ariaDescribedBy,
+  fullWidth = false,
 }: Props) => {
   const { t } = useI18n();
 
@@ -46,9 +48,13 @@ const PrioritySelector = ({
 
   return (
     <div
-      className={`flex gap-1 p-1 rounded-xl transition-all ${
-        hasError ? "ring-1 ring-red-500 animate-[shake_0.2s]" : ""
-      }`}
+      className={`${fullWidth ? "flex w-full" : "inline-flex"} gap-1 p-1.5 rounded-2xl border bg-transparent transition-all whitespace-nowrap
+        focus-within:outline-none focus-within:border-[#22d3ee] focus-within:ring-2 focus-within:ring-[#22d3ee]/30
+        ${
+          hasError
+            ? "border-red-500 animate-[shake_0.2s]"
+            : "border-gray-600 hover:border-gray-500"
+        }`}
       role="radiogroup"
       aria-invalid={hasError}
       aria-describedby={ariaDescribedBy}
@@ -67,7 +73,7 @@ const PrioritySelector = ({
             onClick={() => onChange(opt.value)}
             role="radio"
             aria-checked={isSelected}
-            className={`flex items-center justify-center rounded-xl transition-all border
+            className={`flex items-center justify-center rounded-xl transition-all border ${fullWidth ? "flex-1" : ""}
               ${sizeClasses[size]}
               ${stateClasses}`}
           >
